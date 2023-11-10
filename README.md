@@ -4,9 +4,9 @@ The MultipleSelect component is a custom select component that allows users to s
 
 The component takes the following props:
 
-value: An array of ISelectOption objects representing the currently selected options.
-options: An array of ISelectOption objects representing the available options to choose from.
-onChange: A callback function that is called when the selected options change. It takes an array of ISelectOption objects representing the new selected options as an argument.
+- value: An array of ISelectOption objects representing the currently selected options.
+- options: An array of ISelectOption objects representing the available options to choose from.
+- onChange: A callback function that is called when the selected options change. It takes an array of ISelectOption objects representing the new selected options as an argument.
 
 ## Deploy version
 
