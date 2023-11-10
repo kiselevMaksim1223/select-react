@@ -1,0 +1,19 @@
+.selectedOption {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  padding: 4px 12px;
+  background-color: var(--black-primary-100);
+  outline: none;
+  border: none;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.selectedOption:hover {
+  background-color: #d9d9d9;
+}

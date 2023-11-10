@@ -1,0 +1,49 @@
+.item {
+  cursor: pointer;
+
+  display: flex;
+  column-gap: 10px;
+  justify-content: space-between;
+
+  padding: 16px;
+
+  word-break: break-word;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.content {
+  display: flex;
+  gap: 8px;
+}
+
+.item:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+.item:last-child {
+  border-radius: 0 0 10px 10px;
+}
+
+.item:not(:last-child) {
+  border-bottom: 1px solid var(--black-primary-100);
+}
+
+.itemSelected {
+  background-color: var(--black-primary-100);
+}
+
+.itemHover {
+  cursor: pointer;
+
+  padding: 16px;
+
+  color: var(--color-white);
+  word-break: break-word;
+
+  background-color: var(--brand-primary-500);
+}
+
+.image {
+  width: 20px;
+}
