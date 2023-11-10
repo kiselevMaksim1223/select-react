@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ISelectOption } from "../ui-kit/select/Select/Select";
+import { ISelectOption } from "../ui-kit/select/MultipleSelect/MultipleSelect";
 import russia from "../assets/images/russia.svg";
 import spain from "../assets/images/spain.svg";
 import italy from "../assets/images/italy.svg";
