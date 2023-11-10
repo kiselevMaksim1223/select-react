@@ -98,7 +98,7 @@ const MultipleSelect: FC<IMultipleSelect> = ({ value, options, onChange }) => {
     <div className={styles.mainWrapper} ref={selectMenuRef}>
       <MultipleSelectHeader
         isOpenMenu={isOpenItemsMenu}
-        currentSelectedOption={value}
+        currentSelectedOptions={value}
         handleToggleMenu={handleToggleMenu}
         handleToggleMenuOutside={handleToggleCloseMenu}
         handleRemoveSelectedOption={(option: ISelectOption) =>

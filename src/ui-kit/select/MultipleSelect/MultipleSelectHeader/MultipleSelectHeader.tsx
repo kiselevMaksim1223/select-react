@@ -7,14 +7,14 @@ import MultipleSelectedOption from "./MultipleSelectedOption/MultipleSelectedOpt
 
 interface ISelectHeaderMultiple {
   isOpenMenu: boolean;
-  currentSelectedOption: ISelectOption[] | undefined;
+  currentSelectedOptions: ISelectOption[] | undefined;
   handleToggleMenu: () => void;
   handleToggleMenuOutside: () => void;
   handleRemoveSelectedOption: (option: ISelectOption) => void;
 }
 
 const SelectHeader: FC<ISelectHeaderMultiple> = ({
-  currentSelectedOption,
+  currentSelectedOptions,
   handleToggleMenu,
   isOpenMenu,
   handleRemoveSelectedOption,
@@ -28,13 +28,17 @@ const SelectHeader: FC<ISelectHeaderMultiple> = ({
       tabIndex={0}
     >
       <div className={styles.selectedOptions}>
-        {currentSelectedOption?.map((el) => (
-          <MultipleSelectedOption
-            key={el.value}
-            option={el}
-            handleRemoveSelectedOption={handleRemoveSelectedOption}
-          />
-        ))}
+        {currentSelectedOptions?.length === 0 ? (
+          <span className={styles.placeholder}>Выберите значение...</span>
+        ) : (
+          currentSelectedOptions?.map((el) => (
+            <MultipleSelectedOption
+              key={el.value}
+              option={el}
+              handleRemoveSelectedOption={handleRemoveSelectedOption}
+            />
+          ))
+        )}
       </div>
       <div className={styles.arrowWrapper}>
         <img

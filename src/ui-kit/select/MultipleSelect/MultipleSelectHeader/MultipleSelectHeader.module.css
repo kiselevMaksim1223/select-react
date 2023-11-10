@@ -32,3 +32,9 @@
 .arrowRotate {
   transform: rotate(180deg);
 }
+
+.placeholder {
+  font-size: 14px;
+  font-weight: 400;
+  color: #c1c1c1;
+}
