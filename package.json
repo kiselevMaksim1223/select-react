@@ -7,6 +7,18 @@
     "dev": "--config __webpack__/webpack.dev.js",
     "prod": "--config __webpack__/webpack.prod.js"
   },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "scripts": {
     "webpack-config-dev": "nodemon --watch \"./__webpack__/*\" --exec npm run start-dev",
     "webpack-config-prod": "nodemon --watch \"./__webpack__/*\" --exec npm run start-prod",
