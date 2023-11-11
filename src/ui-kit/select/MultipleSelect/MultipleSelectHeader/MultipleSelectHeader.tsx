@@ -19,25 +19,26 @@ const SelectHeader: FC<ISelectHeaderMultiple> = ({
   isOpenMenu,
   handleRemoveSelectedOption,
 }) => {
+  const mappedSelectedOptions = currentSelectedOptions?.map((el) => (
+    <MultipleSelectedOption
+      key={el.value}
+      option={el}
+      handleRemoveSelectedOption={handleRemoveSelectedOption}
+    />
+  ));
   return (
     <div
+      id="combobox"
       role="combobox"
       className={styles.wrapper}
       onClick={handleToggleMenu}
-      onKeyPress={handleToggleMenu}
       tabIndex={0}
     >
       <div className={styles.selectedOptions}>
-        {currentSelectedOptions?.length === 0 ? (
+        {!currentSelectedOptions ? (
           <span className={styles.placeholder}>Выберите значение...</span>
         ) : (
-          currentSelectedOptions?.map((el) => (
-            <MultipleSelectedOption
-              key={el.value}
-              option={el}
-              handleRemoveSelectedOption={handleRemoveSelectedOption}
-            />
-          ))
+          mappedSelectedOptions
         )}
       </div>
       <div className={styles.arrowWrapper}>

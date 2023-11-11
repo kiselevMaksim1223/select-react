@@ -11,10 +11,8 @@ const useClickOutside = (
   };
 
   useEffect(() => {
-    // Attach the event listener on component mount
     document.addEventListener("click", handleClickOutside);
 
-    // Detach the event listener on component unmount
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };

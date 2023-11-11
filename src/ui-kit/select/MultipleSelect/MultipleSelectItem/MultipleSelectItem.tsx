@@ -1,27 +1,26 @@
 import React, { FC } from "react";
-
 import * as styles from "./MultipleSelectItem.module.css";
 import clsx from "clsx";
 import { ISelectOption } from "../MultipleSelect";
 import Checkbox from "../../../Checkbox/Checkbox";
 
-interface ISelectItemMultiple {
+interface IMultipleSelectItem {
   currentSelectedItems?: ISelectOption[];
   value: ISelectOption;
   handleSelectedValue: (value: ISelectOption) => void;
   handleToggleCloseMenu: () => void;
   currentItemIndex: number;
+  elementIndex: number;
   setCurrentItemIndex: (value: number) => void;
 }
 
-type ISelectItem = ISelectItemMultiple;
-
-const SelectItem: FC<ISelectItem> = ({
+const MultipleSelectItem: FC<IMultipleSelectItem> = ({
   value,
   currentSelectedItems,
   handleSelectedValue,
   handleToggleCloseMenu,
   currentItemIndex,
+  elementIndex,
   setCurrentItemIndex,
 }) => {
   const handleClickOnItem = (): void => {
@@ -31,11 +30,11 @@ const SelectItem: FC<ISelectItem> = ({
   };
 
   const handleHoverOnItem = (): void => {
-    setCurrentItemIndex((value.value as number) - 1);
+    setCurrentItemIndex(elementIndex);
   };
 
   const selectedItemClassName = clsx(styles.item, {
-    [styles.itemHover]: currentItemIndex === (value.value as number) - 1,
+    [styles.itemHover]: currentItemIndex === elementIndex,
   });
   return (
     <li
@@ -59,4 +58,4 @@ const SelectItem: FC<ISelectItem> = ({
   );
 };
 
-export default SelectItem;
+export default MultipleSelectItem;

@@ -4,11 +4,7 @@
   position: absolute;
   z-index: 100;
 
-  /* overflow: auto; */
-
   width: 100%;
-  /* max-height: 200px; */
-
   background: #fff;
   margin-top: 8px;
 
@@ -20,4 +16,13 @@
 
 .main::-webkit-scrollbar {
   display: none;
+}
+
+.notFound {
+  display: flex;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  color: var(--black-primary-500);
+  padding: 16px;
 }

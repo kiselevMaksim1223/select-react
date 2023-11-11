@@ -17,6 +17,7 @@
 
 .wrapper:focus {
   border-color: hsl(200, 100%, 50%);
+  outline: none;
 }
 
 .arrowWrapper {
