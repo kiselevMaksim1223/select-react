@@ -63,8 +63,8 @@ const MultipleSelect: FC<IMultipleSelect> = ({ value, options, onChange }) => {
       const select = document.getElementById("combobox")!;
 
       window.onscroll = () => {
-        select.blur();
-        handleToggleCloseMenu();
+        // select.blur();
+        // handleToggleCloseMenu();
       };
       document.onkeydown = (e) => {
         const keyCode = e.code;
