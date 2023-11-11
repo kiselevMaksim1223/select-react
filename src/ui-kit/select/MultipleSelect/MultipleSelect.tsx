@@ -22,6 +22,8 @@ const NEXT = 1;
 const MultipleSelect: FC<IMultipleSelect> = ({ value, options, onChange }) => {
   const [isOpenItemsMenu, setIsOpenItemsMenu] = useState(false);
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
+  const [searchText, setSearchText] = useState<string>("");
+  const [searchOptions, setSearchOptions] = useState(options);
 
   const selectMenuRef = useRef<HTMLDivElement>(null);
 
@@ -32,6 +34,7 @@ const MultipleSelect: FC<IMultipleSelect> = ({ value, options, onChange }) => {
   const handleToggleCloseMenu = () => {
     setIsOpenItemsMenu(false);
     setCurrentItemIndex(0);
+    setSearchText("");
   };
 
   useClickOutside(selectMenuRef, handleToggleCloseMenu);
@@ -45,51 +48,58 @@ const MultipleSelect: FC<IMultipleSelect> = ({ value, options, onChange }) => {
     }
   };
 
+  // search
+  useEffect(() => {
+    const newOptions = options.filter((el) =>
+      el.label.text.toLowerCase().startsWith(searchText.toLowerCase())
+    );
+    setSearchOptions(newOptions);
+  }, [searchText]);
+
+  // keyboard navigation
   useEffect(() => {
     if (isOpenItemsMenu) {
-      const test = window.scrollY;
-      const select = document.getElementById("combobox-list")!;
-
-      const selectOptions = Array.from(select.querySelectorAll("li"));
-
-      if (currentItemIndex >= 0 && select) {
-        const selectOptions = Array.from(select.querySelectorAll("li"));
-
-        selectOptions[currentItemIndex].scrollIntoView({ block: "nearest" });
-      }
+      const input = document.getElementById("search-input")!;
+      const select = document.getElementById("combobox")!;
 
       window.onscroll = () => {
-        window.scroll(0, test);
+        select.blur();
+        handleToggleCloseMenu();
       };
       document.onkeydown = (e) => {
         const keyCode = e.code;
 
-        e.preventDefault();
         if (keyCode === "Enter" && currentItemIndex >= 0) {
-          selectOption(options[currentItemIndex]);
+          searchOptions[currentItemIndex] &&
+            selectOption(searchOptions[currentItemIndex]);
           handleToggleCloseMenu();
           setCurrentItemIndex(0);
         }
-        if (keyCode === "ArrowUp" && options[currentItemIndex - PREV]) {
+        if (keyCode === "ArrowUp" && searchOptions[currentItemIndex - PREV]) {
           setCurrentItemIndex(currentItemIndex - PREV);
         }
-        if (keyCode === "ArrowDown" && options[currentItemIndex + NEXT]) {
+        if (keyCode === "ArrowDown" && searchOptions[currentItemIndex + NEXT]) {
+          input.blur();
           setCurrentItemIndex(currentItemIndex + NEXT);
-        }
-        if (keyCode !== "Escape" && currentItemIndex >= 0) {
-          selectOptions[currentItemIndex].scrollIntoView({ block: "nearest" });
         }
         if (keyCode === "Escape" || currentItemIndex < 0) {
           handleToggleCloseMenu();
         }
       };
     } else {
+      const input = document.getElementById("search-input")!;
       document.onkeydown = (e) => {
         const keyCode = e.code;
-        if (keyCode === "ArrowUp" || keyCode === "ArrowDown") return true;
-      };
-      window.onscroll = () => {
-        return true;
+        if (
+          keyCode === "Enter" ||
+          (keyCode === "Space" && !isOpenItemsMenu) ||
+          keyCode === "ArrowDown"
+        ) {
+          input && input.focus();
+          handleToggleMenu();
+        } else {
+          return true;
+        }
       };
     }
   }, [isOpenItemsMenu, options, value, handleToggleCloseMenu]);
@@ -108,11 +118,13 @@ const MultipleSelect: FC<IMultipleSelect> = ({ value, options, onChange }) => {
       <MultipleSelectMenu
         isOpen={isOpenItemsMenu}
         selectedValues={value}
-        handleSelectedValue={onChange}
-        options={options}
+        handleSelectedValue={selectOption}
+        options={searchOptions}
         handleToggleCloseMenu={handleToggleCloseMenu}
         currentItemIndex={currentItemIndex}
         setCurrentItemIndex={setCurrentItemIndex}
+        searchText={searchText}
+        handleSearchText={setSearchText}
       />
     </div>
   );

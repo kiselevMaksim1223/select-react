@@ -1,48 +1,43 @@
 import React, { FC } from "react";
-
 import * as styles from "./MultipleSelectMenu.module.css";
 import { ISelectOption } from "../MultipleSelect";
 import MultipleSelectItem from "../MultipleSelectItem/MultipleSelectItem";
+import Search from "../../../Search/Search";
 
 interface ISelectMenuMultiple {
   selectedValues: ISelectOption[] | undefined;
-  handleSelectedValue: (value: ISelectOption[]) => void;
+  handleSelectedValue: (value: ISelectOption) => void;
   options: ISelectOption[];
   isOpen: boolean;
   className?: string;
   handleToggleCloseMenu: () => void;
   currentItemIndex: number;
   setCurrentItemIndex: (value: number) => void;
+  searchText: string;
+  handleSearchText: (value: string) => void;
 }
 
 type ISelectMenu = ISelectMenuMultiple;
 
-const SelectMenu: FC<ISelectMenu> = ({
+const MultipleSelectMenu: FC<ISelectMenu> = ({
   selectedValues,
   handleSelectedValue,
   options,
   isOpen,
-  className,
   handleToggleCloseMenu,
   currentItemIndex,
   setCurrentItemIndex,
+  searchText,
+  handleSearchText,
 }) => {
   if (!isOpen) return null;
 
-  const selectOption = (option: ISelectOption) => {
-    const values = selectedValues ?? [];
-    if (values?.includes(option)) {
-      handleSelectedValue(values.filter((o) => o !== option));
-    } else {
-      handleSelectedValue([...values, option]);
-    }
-  };
-
-  const mappedSelectItems = options.map((el) => (
+  const mappedSelectItems = options.map((el, index) => (
     <MultipleSelectItem
       key={el.value}
       value={el}
-      handleSelectedValue={selectOption}
+      elementIndex={index}
+      handleSelectedValue={handleSelectedValue}
       currentSelectedItems={selectedValues}
       handleToggleCloseMenu={handleToggleCloseMenu}
       currentItemIndex={currentItemIndex}
@@ -57,9 +52,14 @@ const SelectMenu: FC<ISelectMenu> = ({
       aria-expanded={isOpen}
       className={styles.main}
     >
-      {mappedSelectItems}
+      <Search searchText={searchText} handleSearchText={handleSearchText} />
+      {mappedSelectItems.length === 0 ? (
+        <div className={styles.notFound}>Ничего не найдено</div>
+      ) : (
+        mappedSelectItems
+      )}
     </ul>
   );
 };
 
-export default SelectMenu;
+export default MultipleSelectMenu;
